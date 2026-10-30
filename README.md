@@ -53,6 +53,17 @@ All numbers come from running `sql/telco_churn_analysis.sql` on PostgreSQL 16.2 
 ### Dashboard
 ![Churn dashboard](dashboard/churn_dashboard.png)
 
+**Page 2: drivers & segments**
+![Dashboard page 2](dashboard/churn_dashboard_page2.png)
+
+### More charts
+| | |
+|---|---|
+| ![Add-on services](images/chart_addon_services.png) | ![Cumulative churn](images/chart_cumulative_churn.png) |
+| ![Contract x tenure](images/chart_heatmap_contract_tenure.png) | ![Payment x internet](images/chart_heatmap_payment_internet.png) |
+| ![Price quartile](images/chart_price_quartile.png) | ![Customer profile](images/chart_customer_profile.png) |
+| ![Internet service](images/chart_internet_service.png) | ![Churned vs retained](images/chart_clv_churned_vs_retained.png) |
+
 ### Query optimization (EXPLAIN ANALYZE)
 | | Plan | Execution time |
 |---|---|---|
