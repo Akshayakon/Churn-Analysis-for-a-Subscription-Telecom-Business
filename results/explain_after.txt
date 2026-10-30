@@ -1,0 +1,8 @@
+GroupAggregate  (cost=18.82..231.39 rows=1 width=28) (actual time=0.395..0.396 rows=1 loops=1)
+  ->  Bitmap Heap Scan on customers  (cost=18.82..226.24 rows=1028 width=14) (actual time=0.089..0.255 rows=1655 loops=1)
+        Recheck Cond: (((contract)::text = 'Month-to-month'::text) AND (churn_flag = 1))
+        Heap Blocks: exact=157
+        ->  Bitmap Index Scan on idx_customers_contract_churn  (cost=0.00..18.56 rows=1028 width=0) (actual time=0.077..0.077 rows=1655 loops=1)
+              Index Cond: (((contract)::text = 'Month-to-month'::text) AND (churn_flag = 1))
+Planning Time: 0.112 ms
+Execution Time: 0.422 ms
