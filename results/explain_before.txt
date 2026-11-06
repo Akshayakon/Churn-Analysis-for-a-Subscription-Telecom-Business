@@ -1,6 +1,6 @@
-GroupAggregate  (cost=0.00..297.66 rows=1 width=84) (actual time=0.766..0.766 rows=1 loops=1)
-  ->  Seq Scan on customers  (cost=0.00..297.64 rows=1 width=70) (actual time=0.009..0.689 rows=1655 loops=1)
+GroupAggregate  (cost=0.00..297.66 rows=1 width=84) (actual time=0.956..0.957 rows=1 loops=1)
+  ->  Seq Scan on customers  (cost=0.00..297.64 rows=1 width=70) (actual time=0.008..0.888 rows=1655 loops=1)
         Filter: ((churn_flag = 1) AND ((contract)::text = 'Month-to-month'::text))
         Rows Removed by Filter: 5388
-Planning Time: 0.058 ms
-Execution Time: 0.779 ms
+Planning Time: 0.039 ms
+Execution Time: 0.971 ms

@@ -263,23 +263,23 @@ _(0 rows)_
 ## explain_before
 
 ```
-GroupAggregate  (cost=0.00..297.66 rows=1 width=84) (actual time=0.766..0.766 rows=1 loops=1)
-  ->  Seq Scan on customers  (cost=0.00..297.64 rows=1 width=70) (actual time=0.009..0.689 rows=1655 loops=1)
+GroupAggregate  (cost=0.00..297.66 rows=1 width=84) (actual time=0.956..0.957 rows=1 loops=1)
+  ->  Seq Scan on customers  (cost=0.00..297.64 rows=1 width=70) (actual time=0.008..0.888 rows=1655 loops=1)
         Filter: ((churn_flag = 1) AND ((contract)::text = 'Month-to-month'::text))
         Rows Removed by Filter: 5388
-Planning Time: 0.058 ms
-Execution Time: 0.779 ms
+Planning Time: 0.039 ms
+Execution Time: 0.971 ms
 ```
 
 ## explain_after
 
 ```
-GroupAggregate  (cost=18.82..231.39 rows=1 width=28) (actual time=0.395..0.396 rows=1 loops=1)
-  ->  Bitmap Heap Scan on customers  (cost=18.82..226.24 rows=1028 width=14) (actual time=0.089..0.255 rows=1655 loops=1)
+GroupAggregate  (cost=18.82..231.39 rows=1 width=28) (actual time=1.300..1.302 rows=1 loops=1)
+  ->  Bitmap Heap Scan on customers  (cost=18.82..226.24 rows=1028 width=14) (actual time=0.284..0.762 rows=1655 loops=1)
         Recheck Cond: (((contract)::text = 'Month-to-month'::text) AND (churn_flag = 1))
         Heap Blocks: exact=157
-        ->  Bitmap Index Scan on idx_customers_contract_churn  (cost=0.00..18.56 rows=1028 width=0) (actual time=0.077..0.077 rows=1655 loops=1)
+        ->  Bitmap Index Scan on idx_customers_contract_churn  (cost=0.00..18.56 rows=1028 width=0) (actual time=0.234..0.235 rows=1655 loops=1)
               Index Cond: (((contract)::text = 'Month-to-month'::text) AND (churn_flag = 1))
-Planning Time: 0.112 ms
-Execution Time: 0.422 ms
+Planning Time: 0.375 ms
+Execution Time: 1.451 ms
 ```
