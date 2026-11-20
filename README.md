@@ -1,4 +1,4 @@
-# Telecom Customer Churn Analysis (SQL + Power BI)
+# Telecom Customer Churn Analysis (SQL + Python + Power BI Guide)
 
 > Identified which customers leave, why they leave, and how much revenue it costs, then built a SQL-based risk model to flag customers for retention campaigns.
 
@@ -10,7 +10,7 @@ A telecom provider is losing customers and does not know which segments are at r
 4. Which current customers should the retention team contact first?
 
 ## Tools & Skills
-`PostgreSQL` | `SQL` | `CTEs` | `Window Functions` | `Subqueries` | `Views` | `Indexing & Query Optimization` | `Data Cleaning` | `Power BI`
+`PostgreSQL` | `SQL` | `CTEs` | `Window Functions` | `Subqueries` | `Views` | `Indexing & Query Optimization` | `Data Cleaning` | `Python` | `matplotlib` | `Power BI (build guide)`
 
 ## Dataset
 IBM Telco Customer Churn sample dataset (also published on Kaggle as "Telco Customer Churn"): 7,043 customers, 21 columns (demographics, services, contract, billing, churn status). The CSV in `data/` was downloaded from IBM's public GitHub repository (`IBM/telco-customer-churn-on-icp4d`).
@@ -23,7 +23,7 @@ telco-churn-sql/
 │   └── telco_churn_analysis.sql
 ├── scripts/         # run_analysis.py (runs the SQL), make_images.py, make_more_charts.py
 ├── results/         # query_results.md, EXPLAIN plan text
-├── dashboard/       # view export CSV, 2 dashboard pages (PNG), Power BI build guide
+├── dashboard/       # view export CSV, 2 dashboard pages (PNG), Power BI build guides
 ├── images/          # EXPLAIN plan renders + extra charts
 └── README.md
 ```
@@ -33,7 +33,7 @@ telco-churn-sql/
 2. **Exploratory analysis:** 11 business questions answered with SQL (joins, CTEs, aggregations, window functions).
 3. **Risk scoring model:** built a rule-based score in SQL (view `v_customer_risk`) and validated it against actual churn.
 4. **Optimization:** added composite indexes; query time went from 0.779 ms to 0.422 ms (see `/images` and the caveat below).
-5. **Dashboard:** `v_churn_dashboard` exported to `dashboard/v_churn_dashboard.csv`. The dashboard images in this repo (`dashboard/churn_dashboard.png` and `churn_dashboard_page2.png`) are generated with Python/matplotlib from the same data. The Power BI build steps, DAX measures and layout are in [dashboard/POWERBI_GUIDE.md](dashboard/POWERBI_GUIDE.md).
+5. **Dashboard:** `v_churn_dashboard` exported to `dashboard/v_churn_dashboard.csv`. The dashboard images in this repo (`dashboard/churn_dashboard.png` and `churn_dashboard_page2.png`) are generated with Python/matplotlib from the same data. The Power BI build steps, DAX measures and layout are in [dashboard/POWERBI_GUIDE.md](dashboard/POWERBI_GUIDE.md), with a beginner-friendly walkthrough in [dashboard/POWERBI_STEP_BY_STEP.md](dashboard/POWERBI_STEP_BY_STEP.md).
 
 ## Key Findings
 All numbers come from running `sql/telco_churn_analysis.sql` on PostgreSQL 16.2 (full output in [results/query_results.md](results/query_results.md)).
