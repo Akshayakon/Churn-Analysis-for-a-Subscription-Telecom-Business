@@ -148,9 +148,9 @@ If a number is different:
 
 ## Step 6. Save and share
 
-1. **File > Save as**, and save it as `dashboard/churn_dashboard.pbix`.
+1. **File > Save as**, and save it as `powerbi/churn_dashboard.pbix`.
 2. Take a screenshot for the README: **File > Export > Export to PDF**, or use the Snipping Tool.
-3. Save the image as `dashboard/churn_dashboard_powerbi.png` and add it to the README.
+3. Save the image as `powerbi/churn_dashboard_powerbi.png` and add it to the README.
 
 ---
 

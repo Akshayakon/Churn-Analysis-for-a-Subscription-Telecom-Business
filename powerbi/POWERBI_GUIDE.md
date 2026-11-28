@@ -1,6 +1,6 @@
 # Build the Power BI dashboard (about 15 minutes)
 
-`churn_dashboard.png` is the target layout. Save the finished file as `dashboard/churn_dashboard.pbix`.
+`churn_dashboard.png` is the target layout. Save the finished file as `powerbi/churn_dashboard.pbix`.
 
 ## 1. Connect
 **Option A (PostgreSQL):** Get Data > PostgreSQL database > server `localhost`, database `telco_churn` > select view `v_churn_dashboard` > Import.
