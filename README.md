@@ -41,7 +41,7 @@ telco-churn-sql/
 1. **Data cleaning:** converted text to numeric types, fixed 11 blank `TotalCharges` values, created tenure buckets and a binary churn flag.
 2. **Exploratory analysis:** 11 business questions answered with SQL (joins, CTEs, aggregations, window functions).
 3. **Risk scoring model:** built a rule-based score in SQL (view `v_customer_risk`) and validated it against actual churn.
-4. **Optimization:** added composite indexes; query time went from 0.779 ms to 0.422 ms (see `/images` and the caveat below).
+4. **Optimization:** added composite indexes and compared the query plans with `EXPLAIN ANALYZE`. The plan switched from a Seq Scan to a Bitmap Index Scan, but on this small table the timing did not improve (0.971 ms before, 1.451 ms after; see `/images` and the caveat below).
 5. **Dashboard:** `v_churn_dashboard` exported to `dashboard/v_churn_dashboard.csv`. The dashboard images in this repo (`dashboard/churn_dashboard.png` and `churn_dashboard_page2.png`) are generated with Python/matplotlib from the same data. The Power BI build steps, DAX measures and layout are in [powerbi/POWERBI_GUIDE.md](powerbi/POWERBI_GUIDE.md), with a beginner-friendly walkthrough in [powerbi/POWERBI_STEP_BY_STEP.md](powerbi/POWERBI_STEP_BY_STEP.md).
 
 ## Findings and Recommendations
@@ -90,15 +90,15 @@ Ordered by expected impact. Each one is tied to the finding behind it.
 ## Query Optimization (EXPLAIN ANALYZE)
 | | Plan | Execution time |
 |---|---|---|
-| Before index | Seq Scan on `customers` | 0.779 ms |
-| After `idx_customers_contract_churn` + `ANALYZE` | Bitmap Index Scan | 0.422 ms |
+| Before index | Seq Scan on `customers` | 0.971 ms |
+| After `idx_customers_contract_churn` + `ANALYZE` | Bitmap Index Scan | 1.451 ms |
 
 ![Before](images/explain_before.png)
 ![After](images/explain_after.png)
 
 The images above are rendered from the real `EXPLAIN ANALYZE` text output (`results/explain_before.txt`, `results/explain_after.txt`), not pgAdmin screenshots.
 
-Caveat: the table has only 7,043 rows, so both runs are sub-millisecond and the absolute gain is small. The "before" plan also ran on a table with no statistics yet (it estimated `rows=1`; the real count was 1,655), so part of the improvement comes from `ANALYZE`, not only the index. The index pays off as the table grows.
+Caveat: the table has only 7,043 rows, so both runs take about a millisecond and single-run timings are noisy. The index was used (the plan changed), but the "after" run was not faster here: the query matches 1,655 of 7,043 rows (about 23%), so reading the whole table is already cheap, and the "after" run also had a longer planning time (0.375 ms vs 0.039 ms). The "before" plan ran on a table with no statistics yet (it estimated `rows=1`; the real count was 1,655). An index is expected to pay off on much larger tables, but this project does not show that.
 
 ## Limitations
 - **Risk model is rule-based:** the point weights are hand-picked from the patterns in Q2-Q5 and were evaluated on the same data they were derived from. There is no train/test split, so the 56.9% vs 5.4% separation between bands is descriptive, not a measured out-of-sample result.
